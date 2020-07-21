@@ -36,6 +36,9 @@ class DataCollector:
                 log.warning('Failed to re-load topics, going on with the old one.')
                 log.warning(e)
         return self.topics_map
+        
+#    def my_map(x, in_min, in_max, out_min, out_max):
+#        return int((x-in_min) * (out_max-out_min) / (in_max-in_min) + out_min)
 
     def on_message(self, client, userdata, message):
 
@@ -69,9 +72,9 @@ class DataCollector:
         
         for topics_action in topics:
             if topics_action['topic'] == message.topic:
-                if topics_action['name'] == brightness:
-                
-                elif topics_action['name'] == power:
+                if topics_action['name'] == 'brightness':
+                    backlight.brightness = int((message.topic-100) * (10-100) / (30000-100) + 10)
+                elif topics_action['name'] == 'power':
                     if stored_message == 1:
                         backlight.power = False
                     else:
