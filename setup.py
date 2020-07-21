@@ -27,7 +27,7 @@ setup(name='mqtt_to_influxdb',
         'Programming Language :: Python :: 3.5'
       ],
       keywords='MQTT to InfluxDB logger',
-      install_requires=[]+(['setuptools', 'pyyaml', 'ez_setup', 'influxdb', 'paho-mqtt'] if "linux" in sys.platform else []),
+      install_requires=[]+(['setuptools', 'pyyaml', 'ez_setup', 'paho-mqtt'] if "linux" in sys.platform else []),
       license='MIT',
       packages=[],
       include_package_data=True,
