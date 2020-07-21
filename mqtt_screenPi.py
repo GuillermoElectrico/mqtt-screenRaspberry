@@ -10,6 +10,7 @@ import logging
 import subprocess
 import json
 import paho.mqtt.client as mqtt
+from rpi_backlight import Backlight
 
 # Change working dir to the same dir as this script
 os.chdir(sys.path[0])
@@ -37,8 +38,8 @@ class DataCollector:
         return self.topics_map
 
     def on_message(self, client, userdata, message):
-        t_utc = datetime.utcnow()
-        t_str = t_utc.isoformat() + 'Z'
+
+        topics = self.get_topics()
         
         value = message.payload
 
@@ -61,13 +62,20 @@ class DataCollector:
             except :
                 value = str(value)
                 pass
-            stored_message = {'value': value}
+            stored_message = value
         
-
         log.info('Topic: {}' .format(message.topic)) 
-
         log.info('Message: {}' .format(stored_message)) 
         
+        for topics_action in topics:
+            if topics_action['topic'] == message.topic:
+                if topics_action['name'] == brightness:
+                
+                elif topics_action['name'] == power:
+                    if stored_message == 1:
+                        backlight.power = False
+                    else:
+                        backlight.power = True
 
 
     def on_connect(self, client, userdata, flags, rc ):
@@ -136,6 +144,8 @@ if __name__ == '__main__':
     client.connect( host, port )
     
     time.sleep( 4 )
+    
+    backlight = Backlight()
 
     # Blocking call that processes network traffic, dispatches callbacks and
     # handles reconnecting.

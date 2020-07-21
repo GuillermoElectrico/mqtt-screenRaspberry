@@ -1,3 +1,5 @@
 topics:
-    - name : AllTopics
-      topic: '#'
+    - name : brightness 
+      topic: 'home/screen/backlight/brightness'
+    - name : power 
+      topic: 'home/screen/backlight/power'
