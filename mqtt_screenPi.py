@@ -71,8 +71,9 @@ class DataCollector:
             if topics_action['topic'] == message.topic:
                 if topics_action['name'] == 'brightness':
                     if stored_message < 3:
-                        stored_message == 3
-                    backlight.brightness = stored_message
+                        backlight.brightness = 3
+                    else:
+                        backlight.brightness = stored_message
                 elif topics_action['name'] == 'power':
                     if stored_message == 1:
                         backlight.power = False
